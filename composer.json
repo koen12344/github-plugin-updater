@@ -2,7 +2,7 @@
     "name": "koen12344/github-plugin-updater",
     "description": "Modern and lightweight GitHub plugin updater library",
     "type": "library",
-    "license": "GPL v2",
+    "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
             "Koen12344\\GithubPluginUpdater\\": "src/"
