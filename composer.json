@@ -1,0 +1,21 @@
+{
+    "name": "koen12344/github-plugin-updater",
+    "description": "Modern and lightweight GitHub plugin updater library",
+    "type": "library",
+    "license": "GPL v2",
+    "autoload": {
+        "psr-4": {
+            "Koen12344\\GithubPluginUpdater\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Koen Reus",
+            "email": "koen@koenreus.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+      "ext-json": "*"
+    }
+}
