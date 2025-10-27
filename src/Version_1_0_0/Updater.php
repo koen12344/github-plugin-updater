@@ -49,7 +49,7 @@ class Updater
 
 		if (
 			$remote_info &&
-			version_compare($this->current_version, $remote_info->tag_name, '<')
+			version_compare($this->current_version, ltrim($remote_info->tag_name, 'v'), '<')
 		) {
 			$plugin_slug = plugin_basename($this->plugin_file);
 
