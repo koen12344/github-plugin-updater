@@ -1,13 +1,8 @@
 <?php
 
-namespace Koen12344\GithubPluginUpdater\Version_1_0_0;
+namespace Koen12344\GithubPluginUpdater;
 
 use WP_Error;
-
-//Make sure only one instance of this version can be declared if multiple plugins implement the same version of this package
-if (!class_exists( __NAMESPACE__ . '\\Updater')) {
-    return;
-}
 
 class Updater
 {
@@ -36,7 +31,7 @@ class Updater
     public function register(){
         add_filter('pre_set_site_transient_update_plugins', [$this, 'check_for_update']);
         add_filter('plugins_api', [$this, 'plugin_info'], 10, 3);
-        add_filter('upgrader_source_selection', [$this, 'maybe_rename_source'], 10, 3);
+//        add_filter('upgrader_source_selection', [$this, 'maybe_rename_source'], 10, 3);
     }
 
 
@@ -55,8 +50,8 @@ class Updater
 
 			$transient->response[$plugin_slug] = (object) [
 				'slug'              => $plugin_slug,
-				'new_version'       => $remote_info->tag_name,
-				'package'           => $remote_info->zipball_url,
+				'new_version'       => ltrim($remote_info->tag_name, 'v'),
+				'package'           => reset($remote_info->assets)->browser_download_url,
 				'url'               => $remote_info->html_url,
 			];
 		}
@@ -82,10 +77,10 @@ class Updater
 		return (object) [
 			'name' => $this->github_repo,
 			'slug' => plugin_basename($this->plugin_file),
-			'version' => $remote_info->tag_name,
+			'version' => ltrim($remote_info->tag_name, 'v'),
 			'author' => $remote_info->author->login,
 			'homepage' => $remote_info->html_url,
-			'download_link' => $remote_info->zipball_url,
+			'download_link' => reset($remote_info->assets)->browser_download_url,
 			'sections' => [
 				'description' => $remote_info->body,
 			],
